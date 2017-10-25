@@ -57,7 +57,7 @@ var init = function init() {
     //send to server with a interval
     setInterval(function () {
         sendwithLag();
-    }, 40);
+    }, 100);
 };
 
 var sendwithLag = function sendwithLag() {

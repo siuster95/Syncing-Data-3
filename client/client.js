@@ -61,7 +61,7 @@ const init = () => {
     setInterval(() => {
         sendwithLag();
 
-    }, 40);
+    }, 100);
 
 };
 
