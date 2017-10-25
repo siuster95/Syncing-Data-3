@@ -57,6 +57,16 @@ const init = () => {
     document.addEventListener("keydown",keydownHandler);
     document.addEventListener("keyup",keyUpHandler);
 
+    //send to server with a interval
+    setInterval(() => {
+        sendwithLag();
+
+    }, 40);
+
+};
+
+const sendwithLag = () => {
+    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
 };
 
 //draw objects on screen
@@ -138,7 +148,7 @@ const draw = () => {
 
     }
 
-    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+    
     requestAnimationFrame(draw);
 }
 

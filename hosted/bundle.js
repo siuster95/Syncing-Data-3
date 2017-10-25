@@ -53,6 +53,15 @@ var init = function init() {
     //handle buttons
     document.addEventListener("keydown", keydownHandler);
     document.addEventListener("keyup", keyUpHandler);
+
+    //send to server with a interval
+    setInterval(function () {
+        sendwithLag();
+    }, 40);
+};
+
+var sendwithLag = function sendwithLag() {
+    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
 };
 
 //draw objects on screen
@@ -100,7 +109,6 @@ var draw = function draw() {
         ctx.drawImage(walkImage, spriteSize.WIDTH * object.frame, spriteSize.HEIGHT * object.direction, spriteSize.WIDTH, spriteSize.HEIGHT, object.x, object.y, spriteSize.WIDTH, spriteSize.HEIGHT);
     }
 
-    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
     requestAnimationFrame(draw);
 };
 
