@@ -243,10 +243,6 @@ const moveLeftandRight = () => {
         }
 
         square.alpha = 0.05;
-
-
-
-        socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
     }
 };
 
