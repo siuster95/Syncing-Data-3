@@ -108,6 +108,8 @@ const draw = () => {
         {
             object.direction = 0;
         }
+
+        characters[hash] = object;
     }
 
     if(object.hash === hash)
@@ -136,6 +138,7 @@ const draw = () => {
 
     }
 
+    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
     requestAnimationFrame(draw);
 }
 

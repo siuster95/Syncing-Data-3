@@ -87,6 +87,8 @@ var draw = function draw() {
             } else {
                 object.direction = 0;
             }
+
+            characters[hash] = object;
         }
 
         if (object.hash === hash) {
@@ -98,6 +100,7 @@ var draw = function draw() {
         ctx.drawImage(walkImage, spriteSize.WIDTH * object.frame, spriteSize.HEIGHT * object.direction, spriteSize.WIDTH, spriteSize.HEIGHT, object.x, object.y, spriteSize.WIDTH, spriteSize.HEIGHT);
     }
 
+    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
     requestAnimationFrame(draw);
 };
 
