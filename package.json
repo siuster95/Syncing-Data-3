@@ -1,0 +1,34 @@
+{
+  "name": "syncing-data-3",
+  "version": "1.0.0",
+  "description": "A project for syncing-data-3",
+  "main": "./src/server.js",
+  "scripts": {
+    "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
+    "pretest": "eslint ./src --fix",
+    "start": "node ./src/app.js",
+    "test": "echo \"Tests complete\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siuster95/Syncing-Data-3.git"
+  },
+  "author": "Johnny Siu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siuster95/Syncing-Data-3/issues"
+  },
+  "homepage": "https://github.com/siuster95/Syncing-Data-3#readme",
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  },
+  "dependencies": {
+    "socket.io": "^2.0.3",
+    "express": "^4.15.2",
+    "xxhashjs": "^0.2.1"
+  }
+}
