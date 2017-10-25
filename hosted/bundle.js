@@ -119,6 +119,7 @@ var updatePosition = function updatePosition() {
         square.y = lerp(square.prevY, square.destY, square.alpha);
         square.prevX = square.x;
         square.prevY = square.y;
+        characters[keys[x]] = square;
     }
 
     if (hash != undefined) {
