@@ -138,7 +138,7 @@ const draw = () => {
 
     }
 
-    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
     requestAnimationFrame(draw);
 }
 
@@ -175,7 +175,7 @@ const updatePosition = () => {
         }
     }
 
-    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
 
 
 };

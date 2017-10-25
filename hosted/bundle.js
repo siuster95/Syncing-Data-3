@@ -100,7 +100,7 @@ var draw = function draw() {
         ctx.drawImage(walkImage, spriteSize.WIDTH * object.frame, spriteSize.HEIGHT * object.direction, spriteSize.WIDTH, spriteSize.HEIGHT, object.x, object.y, spriteSize.WIDTH, spriteSize.HEIGHT);
     }
 
-    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
     requestAnimationFrame(draw);
 };
 
@@ -131,7 +131,8 @@ var updatePosition = function updatePosition() {
         }
     }
 
-    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
+    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+
 };
 
 //lerp
