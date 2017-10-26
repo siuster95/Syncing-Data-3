@@ -189,15 +189,18 @@ var moveLeftandRight = function moveLeftandRight() {
     if (square != undefined) {
         if (leftarrowBool && square.destX > 0) {
             square.destX -= 2;
+            square.alpha = 0.05;
         } else if (rightarrowBool && square.destX < 400) {
             square.destX += 2;
+            square.alpha = 0.05;
         }
         if (spacebarBool && hasJumped == false) {
             square.destY -= 200;
             hasJumped = true;
+            square.alpha = 0.05;
         }
 
-        square.alpha = 0.05;
+        characters[hash] = square;
     }
 };
 
