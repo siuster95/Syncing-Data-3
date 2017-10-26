@@ -10,7 +10,6 @@ const rightarrow = 39;
 let rightarrowBool = false;
 const spacebar = 32;
 let spacebarBool = false;
-let hasJumped = true;
 let walkImage;
 let timer;
 let previousTime;
@@ -221,21 +220,7 @@ const updatePosition = () => {
         
     }
 
-    if(hash != undefined && hasJumped)
-    {
-
-        let currentTime = Date.now();
-        let deltaTime = currentTime - previousTime;
-        timer += deltaTime;
-        previousTime = currentTime;
-        console.log(timer);
-
-        if(characters[hash].y > 399 && timer > 1000)
-        {
-            hasJumped = false;
-            timer = 0;
-        }
-    }
+    jumping();
 
     
 
@@ -304,14 +289,36 @@ const moveLeftandRight = () => {
             square.destX += 2;
             square.alpha = 0.05;
         }
-        if(spacebarBool && hasJumped == false)
+        if(spacebarBool && square.hasJumped == false && square.y > 399)
         {
-            square.destY -= 100;
-            hasJumped = true;
+            square.hasJumped = true;
             square.alpha = 0.05;
             previousTime = Date.now();
         }
     }
+};
+
+const jumping = () => {
+
+    if(hash != undefined && characters[hash].hasJumped)
+    {
+        let square = characters[hash];
+        let currentTime = Date.now();
+        let deltaTime = currentTime - previousTime;
+        timer += deltaTime;
+        previousTime = currentTime;
+
+        if( timer < 1000)
+        {
+             square.destY -= 5;
+        }
+        else
+        {
+            timer = 0;
+            square.hasJumped = false;
+        }
+    }
+
 };
 
 

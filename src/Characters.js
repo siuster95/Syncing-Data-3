@@ -18,6 +18,7 @@ class Character {
     this.direction = 0;
     this.id = '';
     this.lastUpdate = new Date().getTime();
+    this.hasJumped = false;
   }
 }
 

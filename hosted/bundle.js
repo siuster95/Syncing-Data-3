@@ -11,7 +11,6 @@ var rightarrow = 39;
 var rightarrowBool = false;
 var spacebar = 32;
 var spacebarBool = false;
-var hasJumped = true;
 var walkImage = void 0;
 var timer = void 0;
 var previousTime = void 0;
@@ -162,19 +161,7 @@ var updatePosition = function updatePosition() {
         characters[keys[x]] = square;
     }
 
-    if (hash != undefined && hasJumped) {
-
-        var currentTime = Date.now();
-        var deltaTime = currentTime - previousTime;
-        timer += deltaTime;
-        previousTime = currentTime;
-        console.log(timer);
-
-        if (characters[hash].y > 399 && timer > 1000) {
-            hasJumped = false;
-            timer = 0;
-        }
-    }
+    jumping();
 };
 
 //lerp
@@ -221,11 +208,28 @@ var moveLeftandRight = function moveLeftandRight() {
             square.destX += 2;
             square.alpha = 0.05;
         }
-        if (spacebarBool && hasJumped == false) {
-            square.destY -= 100;
-            hasJumped = true;
+        if (spacebarBool && square.hasJumped == false && square.y > 399) {
+            square.hasJumped = true;
             square.alpha = 0.05;
             previousTime = Date.now();
+        }
+    }
+};
+
+var jumping = function jumping() {
+
+    if (hash != undefined && characters[hash].hasJumped) {
+        var square = characters[hash];
+        var currentTime = Date.now();
+        var deltaTime = currentTime - previousTime;
+        timer += deltaTime;
+        previousTime = currentTime;
+
+        if (timer < 1000) {
+            square.destY -= 5;
+        } else {
+            timer = 0;
+            square.hasJumped = false;
         }
     }
 };
