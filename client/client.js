@@ -48,7 +48,7 @@ const init = () => {
     //when someone leaves
     socket.on("left",(data) => {
 
-        delete characters[data.hash];
+        delete characters[data.hashout];
     });
 
     //update position of all chars
