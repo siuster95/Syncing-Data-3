@@ -42,6 +42,12 @@ var init = function init() {
         }
     });
 
+    //when someone leaves
+    socket.on("left", function (data) {
+
+        delete characters[data.hash];
+    });
+
     //update position of all chars
     socket.on("serverUpdatepos", function (data) {
 

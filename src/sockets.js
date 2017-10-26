@@ -38,14 +38,17 @@ const setupSockets = (ioServer) => {
 
     socket.on('disconnect', () => {
       const keys = Object.keys(characters);
-
+      let hash = "";
       for (let i = 0; i < keys.length; i++) {
         const object = characters[keys[i]];
 
         if (object.id === socket.id) {
+          hash = object.hash;
           delete characters[keys[i]];
         }
       }
+
+      socket.to("room1").emit("left",{hash});
 
 
       socket.leave('room1');
