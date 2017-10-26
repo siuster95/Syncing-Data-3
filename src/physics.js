@@ -10,6 +10,8 @@ const gravity = () => {
   for (let x = 0; x < keys.length; x++) {
     const char = characters[keys[x]];
     if (char.destY + 100 < 499) {
+
+      char.prevY = char.y;
       char.destY += 5;
       char.alpha = 0.05;
     } else {
