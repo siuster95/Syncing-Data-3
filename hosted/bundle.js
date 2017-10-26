@@ -13,6 +13,8 @@ var spacebar = 32;
 var spacebarBool = false;
 var hasJumped = true;
 var walkImage = void 0;
+var timer = void 0;
+var previousTime = void 0;
 
 var spriteSize = {
     WIDTH: 100,
@@ -28,6 +30,9 @@ var init = function init() {
     //connect to socket
     socket = io.connect();
 
+    timer = 0;
+    previousTime = Date.now();
+
     //after connect to socket
     socket.on("Joined", function (data) {
 
@@ -40,12 +45,6 @@ var init = function init() {
         if (!characters[data.hash]) {
             characters[data.hash] = data;
         }
-    });
-
-    //when someone leaves
-    socket.on("left", function (data) {
-
-        delete characters[data.hashout];
     });
 
     //update position of all chars
@@ -163,9 +162,17 @@ var updatePosition = function updatePosition() {
         characters[keys[x]] = square;
     }
 
-    if (hash != undefined) {
-        if (characters[hash].y > 399 && hasJumped == true) {
+    if (hash != undefined && hasJumped) {
+
+        var currentTime = Date.now();
+        var deltaTime = currentTime - previousTime;
+        timer += deltaTime;
+        previousTime = currentTime;
+        console.log(timer);
+
+        if (characters[hash].y > 399 && timer > 1000) {
             hasJumped = false;
+            timer = 0;
         }
     }
 };
@@ -215,9 +222,10 @@ var moveLeftandRight = function moveLeftandRight() {
             square.alpha = 0.05;
         }
         if (spacebarBool && hasJumped == false) {
-            square.destY -= 200;
+            square.destY -= 100;
             hasJumped = true;
             square.alpha = 0.05;
+            previousTime = Date.now();
         }
     }
 };

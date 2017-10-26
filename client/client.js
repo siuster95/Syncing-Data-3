@@ -12,6 +12,9 @@ const spacebar = 32;
 let spacebarBool = false;
 let hasJumped = true;
 let walkImage;
+let timer;
+let previousTime;
+
 
 const spriteSize = {
     WIDTH: 100,
@@ -29,6 +32,8 @@ const init = () => {
     //connect to socket
     socket = io.connect();
 
+    timer = 0;
+    previousTime = Date.now();
 
     //after connect to socket
     socket.on("Joined", (data) => {
@@ -43,12 +48,6 @@ const init = () => {
         {
             characters[data.hash] = data;
         }
-    });
-
-    //when someone leaves
-    socket.on("left",(data) => {
-
-        delete characters[data.hashout];
     });
 
     //update position of all chars
@@ -222,11 +221,19 @@ const updatePosition = () => {
         
     }
 
-    if(hash != undefined)
+    if(hash != undefined && hasJumped)
     {
-        if(characters[hash].y > 399 && hasJumped == true)
+
+        let currentTime = Date.now();
+        let deltaTime = currentTime - previousTime;
+        timer += deltaTime;
+        previousTime = currentTime;
+        console.log(timer);
+
+        if(characters[hash].y > 399 && timer > 1000)
         {
             hasJumped = false;
+            timer = 0;
         }
     }
 
@@ -299,9 +306,10 @@ const moveLeftandRight = () => {
         }
         if(spacebarBool && hasJumped == false)
         {
-            square.destY -= 200;
+            square.destY -= 100;
             hasJumped = true;
             square.alpha = 0.05;
+            previousTime = Date.now();
         }
     }
 };
