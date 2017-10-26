@@ -73,6 +73,7 @@ const init = () => {
 
     socket.on("serverGravity", (data) => {
             characters[data.square.hash].destY = data.square.destY; 
+            characters[data.square.hash].prevY = data.square.prevY;
     });
         
     });
@@ -185,7 +186,6 @@ const updatePosition = () => {
             square.alpha += 0.05;
         }
 
-        square.prevY = square.y;
         square.x = lerp(square.prevX,square.destX,square.alpha);
         square.y = lerp(square.prevY,square.destY,square.alpha);
 
@@ -272,6 +272,7 @@ const moveLeftandRight = () => {
         }
         if(spacebarBool && hasJumped == false)
         {
+            square.prevY = square.y;
             square.destY -= 50;
             hasJumped = true;
             square.alpha = 0.05;
