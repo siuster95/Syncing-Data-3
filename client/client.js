@@ -218,7 +218,7 @@ const updatePosition = () => {
 
     if(hash != undefined)
     {
-        if(characters[hash].y > 399)
+        if(characters[hash].y > 399 && hasJumped == true)
         {
             hasJumped = false;
         }
@@ -293,7 +293,7 @@ const moveLeftandRight = () => {
         }
         if(spacebarBool && hasJumped == false)
         {
-            square.destY -= 100;
+            square.destY -= 200;
             hasJumped = true;
             square.alpha = 0.05;
         }
