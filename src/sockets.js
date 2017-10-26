@@ -53,11 +53,6 @@ const setupSockets = (ioServer) => {
   });
 };
 
-// send position update of one square
-const updatingpositions = (square) => {
-  io.sockets.in('room1').emit('serverUpdatepos', { square });
-};
-
 // send position updates of all squares
 const serverGravity = (square) => {
   io.sockets.in('room1').emit('serverGravity', { square });
