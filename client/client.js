@@ -187,8 +187,7 @@ const updatePosition = () => {
 
         square.x = lerp(square.prevX,square.destX,square.alpha);
         square.y = lerp(square.prevY,square.destY,square.alpha);
-        square.prevX = square.x;
-        square.prevY = square.y;
+
         characters[keys[x]] = square;
         
         
@@ -260,16 +259,19 @@ const moveLeftandRight = () => {
     {
         if(leftarrowBool && square.destX > 0)
         {
+            square.prevX = square.x;
             square.destX -= 2;
             square.alpha = 0.05;
         }
         else if(rightarrowBool && square.destX < 400)
         {
+            square.prevX = square.x;
             square.destX += 2;
             square.alpha = 0.05;
         }
         if(spacebarBool && hasJumped == false)
         {
+            square.prevY = square.y;
             square.destY -= 50;
             hasJumped = true;
             square.alpha = 0.05;
