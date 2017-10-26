@@ -274,8 +274,6 @@ const moveLeftandRight = () => {
             hasJumped = true;
             square.alpha = 0.05;
         }
-
-        characters[hash] = square;
     }
 };
 
