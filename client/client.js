@@ -275,7 +275,7 @@ const moveLeftandRight = () => {
         }
         if(spacebarBool && hasJumped == false)
         {
-            square.destY -= 50;
+            square.destY -= 100;
             hasJumped = true;
             square.alpha = 0.05;
         }
