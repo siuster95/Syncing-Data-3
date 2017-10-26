@@ -68,13 +68,26 @@ const init = () => {
             characters[data.character.hash].frameCount = data.character.frameCount;
             characters[data.character.hash].frame = data.character.frame;
             characters[data.character.hash].direction = data.character.direction;
+            characters[data.character.hash].lastUpdate = data.character.lastUpdate;
         }
     }
 
     socket.on("serverGravity", (data) => {
         if(data.square != undefined)
         {
+            if(!characters[data.square.hash])
+            {
+                characters[data.square.hash] = data.square;
+            }
+            else if(characters[data.square.hash].lastUpdate >= data.square.lastUpdate)
+            {
+                return;
+            }
+            else if(data.character.hash != hash)
+            {
             characters[data.square.hash].destY = data.square.destY; 
+            characters[data.square.hash].lastUpdate = data.square.lastUpdate; 
+            }
         }
     });
         
