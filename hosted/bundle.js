@@ -52,9 +52,7 @@ var init = function init() {
                 return;
             } else {
                 characters[data.character.hash].prevX = data.character.prevX;
-                characters[data.character.hash].prevY = data.character.prevY;
                 characters[data.character.hash].destX = data.character.destX;
-                characters[data.character.hash].destY = data.character.destY;
                 characters[data.character.hash].alpha = data.character.alpha;
                 characters[data.character.hash].frameCount = data.character.frameCount;
                 characters[data.character.hash].frame = data.character.frame;
