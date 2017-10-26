@@ -70,6 +70,10 @@ const init = () => {
             characters[data.character.hash].direction = data.character.direction;
             characters[data.character.hash].lastUpdate = data.character.lastUpdate;
         }
+        else
+        {
+            characters[data.character.hash].lastUpdate = data.character.lastUpdate;
+        }
     }
 
     socket.on("serverGravity", (data) => {
@@ -83,10 +87,14 @@ const init = () => {
             {
                 return;
             }
-            else if(data.character.hash != hash)
+            else if(data.square.hash != hash)
             {
             characters[data.square.hash].destY = data.square.destY; 
             characters[data.square.hash].lastUpdate = data.square.lastUpdate; 
+            }
+            else
+            {
+                characters[data.square.hash].lastUpdate = data.square.lastUpdate; 
             }
         }
     });

@@ -60,6 +60,8 @@ var init = function init() {
                 characters[data.character.hash].frame = data.character.frame;
                 characters[data.character.hash].direction = data.character.direction;
                 characters[data.character.hash].lastUpdate = data.character.lastUpdate;
+            } else {
+                characters[data.character.hash].lastUpdate = data.character.lastUpdate;
             }
         }
 
@@ -69,8 +71,10 @@ var init = function init() {
                     characters[data.square.hash] = data.square;
                 } else if (characters[data.square.hash].lastUpdate >= data.square.lastUpdate) {
                     return;
-                } else if (data.character.hash != hash) {
+                } else if (data.square.hash != hash) {
                     characters[data.square.hash].destY = data.square.destY;
+                    characters[data.square.hash].lastUpdate = data.square.lastUpdate;
+                } else {
                     characters[data.square.hash].lastUpdate = data.square.lastUpdate;
                 }
             }
