@@ -12,7 +12,6 @@ const gravity = () => {
     if (char.destY + 100 < 499) {
 
       
-      char.prevY = char.y;
       char.destY += 5;
       char.alpha = 0.05;
     } else {
