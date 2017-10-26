@@ -71,10 +71,8 @@ var init = function init() {
                     characters[data.square.hash] = data.square;
                 } else if (characters[data.square.hash].lastUpdate >= data.square.lastUpdate) {
                     return;
-                } else if (data.square.hash != hash) {
-                    characters[data.square.hash].destY = data.square.destY;
-                    characters[data.square.hash].lastUpdate = data.square.lastUpdate;
                 } else {
+                    characters[data.square.hash].destY = data.square.destY;
                     characters[data.square.hash].lastUpdate = data.square.lastUpdate;
                 }
             }

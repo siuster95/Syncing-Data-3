@@ -87,16 +87,13 @@ const init = () => {
             {
                 return;
             }
-            else if(data.square.hash != hash)
+            else
             {
             characters[data.square.hash].destY = data.square.destY; 
             characters[data.square.hash].lastUpdate = data.square.lastUpdate; 
             }
-            else
-            {
-                characters[data.square.hash].lastUpdate = data.square.lastUpdate; 
-            }
         }
+    
     });
         
     });
