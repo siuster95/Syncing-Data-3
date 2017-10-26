@@ -58,10 +58,12 @@ const init = () => {
         {
             return;
         }
-        else
+        else if(data.character.hash != hash)
         {
             characters[data.character.hash].prevX = data.character.prevX;
             characters[data.character.hash].destX = data.character.destX;
+            characters[data.character.hash].destY = data.character.destY; 
+            characters[data.character.hash].prevY = data.character.prevY;
             characters[data.character.hash].alpha = data.character.alpha;
             characters[data.character.hash].frameCount = data.character.frameCount;
             characters[data.character.hash].frame = data.character.frame;
@@ -70,8 +72,10 @@ const init = () => {
     }
 
     socket.on("serverGravity", (data) => {
+        if(data.square != undefined)
+        {
             characters[data.square.hash].destY = data.square.destY; 
-            characters[data.square.hash].prevY = data.square.prevY;
+        }
     });
         
     });
@@ -184,6 +188,8 @@ const updatePosition = () => {
             square.alpha += 0.05;
         }
 
+        square.prevX = square.x;
+        square.prevY = square.y;
         square.x = lerp(square.prevX,square.destX,square.alpha);
         square.y = lerp(square.prevY,square.destY,square.alpha);
 
@@ -258,13 +264,12 @@ const moveLeftandRight = () => {
     {
         if(leftarrowBool && square.destX > 0)
         {
-            square.prevX = square.x;
+            
             square.destX -= 2;
             square.alpha = 0.05;
         }
         else if(rightarrowBool && square.destX < 400)
         {
-            square.prevX = square.x;
             square.destX += 2;
             square.alpha = 0.05;
         }
