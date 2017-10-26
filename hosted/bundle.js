@@ -46,6 +46,10 @@ var init = function init() {
         }
     });
 
+    socket.on("left", function (data) {
+        delete characters[data.hashout];
+    });
+
     //update position of all chars
     socket.on("serverUpdatepos", function (data) {
 

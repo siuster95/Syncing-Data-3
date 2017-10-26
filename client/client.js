@@ -49,6 +49,10 @@ const init = () => {
         }
     });
 
+    socket.on("left", (data) => {
+        delete characters[data.hashout];
+    });
+
     //update position of all chars
     socket.on("serverUpdatepos", (data) => {
 
