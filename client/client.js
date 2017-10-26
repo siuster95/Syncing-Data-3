@@ -46,8 +46,35 @@ const init = () => {
     });
 
     //update position of all chars
-    socket.on("serverUpdateposAll", (data) => {
-        characters = data.characters;
+    socket.on("serverUpdatepos", (data) => {
+
+        if(data.character != undefined)
+        {
+        if(!characters[data.character.hash])
+        {
+            characters[data.character.hash] = data.character;
+        }
+        else if(characters[data.character.hash].lastUpdate >= data.character.lastUpdate)
+        {
+            return;
+        }
+        else
+        {
+            characters[data.character.hash].prevX = data.character.prevX;
+            characters[data.character.hash].prevY = data.character.prevY;
+            characters[data.character.hash].destX = data.character.destX;
+            characters[data.character.hash].destY = data.character.destY;
+            characters[data.character.hash].alpha = data.character.alpha;
+            characters[data.character.hash].frameCount = data.character.frameCount;
+            characters[data.character.hash].frame = data.character.frame;
+            characters[data.character.hash].direction = data.character.direction;
+        }
+    }
+
+    socket.on("serverGravity", (data) => {
+            characters[data.square.hash].destY = data.square.destY; 
+    });
+        
     });
 
     //start drawing
@@ -57,17 +84,8 @@ const init = () => {
     document.addEventListener("keydown",keydownHandler);
     document.addEventListener("keyup",keyUpHandler);
 
-    //send to server with a interval
-    setInterval(() => {
-        sendwithLag();
-
-    }, 100);
-
 };
 
-const sendwithLag = () => {
-    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
-};
 
 //draw objects on screen
 const draw = () => {
@@ -147,8 +165,7 @@ const draw = () => {
 
 
     }
-
-    
+    socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
     requestAnimationFrame(draw);
 }
 
@@ -185,7 +202,7 @@ const updatePosition = () => {
         }
     }
 
-    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
+    
 
 
 };

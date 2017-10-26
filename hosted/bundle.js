@@ -43,8 +43,28 @@ var init = function init() {
     });
 
     //update position of all chars
-    socket.on("serverUpdateposAll", function (data) {
-        characters = data.characters;
+    socket.on("serverUpdatepos", function (data) {
+
+        if (data.character != undefined) {
+            if (!characters[data.character.hash]) {
+                characters[data.character.hash] = data.character;
+            } else if (characters[data.character.hash].lastUpdate >= data.character.lastUpdate) {
+                return;
+            } else {
+                characters[data.character.hash].prevX = data.character.prevX;
+                characters[data.character.hash].prevY = data.character.prevY;
+                characters[data.character.hash].destX = data.character.destX;
+                characters[data.character.hash].destY = data.character.destY;
+                characters[data.character.hash].alpha = data.character.alpha;
+                characters[data.character.hash].frameCount = data.character.frameCount;
+                characters[data.character.hash].frame = data.character.frame;
+                characters[data.character.hash].direction = data.character.direction;
+            }
+        }
+
+        socket.on("serverGravity", function (data) {
+            characters[data.square.hash].destY = data.square.destY;
+        });
     });
 
     //start drawing
@@ -53,15 +73,6 @@ var init = function init() {
     //handle buttons
     document.addEventListener("keydown", keydownHandler);
     document.addEventListener("keyup", keyUpHandler);
-
-    //send to server with a interval
-    setInterval(function () {
-        sendwithLag();
-    }, 100);
-};
-
-var sendwithLag = function sendwithLag() {
-    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
 };
 
 //draw objects on screen
@@ -108,7 +119,7 @@ var draw = function draw() {
 
         ctx.drawImage(walkImage, spriteSize.WIDTH * object.frame, spriteSize.HEIGHT * object.direction, spriteSize.WIDTH, spriteSize.HEIGHT, object.x, object.y, spriteSize.WIDTH, spriteSize.HEIGHT);
     }
-
+    socket.emit("updateFromclient", { "character": characters[hash], "hash": hash });
     requestAnimationFrame(draw);
 };
 
@@ -138,9 +149,6 @@ var updatePosition = function updatePosition() {
             hasJumped = false;
         }
     }
-
-    //socket.emit("updateFromclient",{"character":characters[hash],"hash":hash});
-
 };
 
 //lerp

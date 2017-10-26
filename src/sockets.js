@@ -29,6 +29,10 @@ const setupSockets = (ioServer) => {
       if (data.hash !== undefined) {
         characters[data.hash] = data.character;
         phsyics.setcharacters(characters);
+        characters[data.hash].lastUpdate = new Date().getTime();
+        io.sockets.in('room1').emit('serverUpdatepos', { "character":characters[data.hash]});
+
+
       }
     });
 
@@ -55,12 +59,11 @@ const updatingpositions = (square) => {
 };
 
 // send position updates of all squares
-const updatingAllpositions = () => {
-  io.sockets.in('room1').emit('serverUpdateposAll', { characters });
+const serverGravity = (square) => {
+  io.sockets.in('room1').emit('serverGravity', { square });
 };
 
 
 module.exports.setupSockets = setupSockets;
-module.exports.updatingpositions = updatingpositions;
-module.exports.updatingAllpositions = updatingAllpositions;
+module.exports.serverGravity = serverGravity;
 module.exports.characters = characters;

@@ -17,6 +17,7 @@ class Character {
     this.frameCount = 0;
     this.direction = 0;
     this.id = '';
+    this.lastUpdate = new Date().getTime();
   }
 }
 

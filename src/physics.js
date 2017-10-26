@@ -17,9 +17,10 @@ const gravity = () => {
     }
 
     characters[keys[x]] = char;
+    characters[keys[x]].lastUpdate = new Date().getTime();
+    sockets.serverGravity(characters[keys[x]]);
   }
   // send new position
-  sockets.updatingAllpositions();
 };
 
 // set the characters over here
